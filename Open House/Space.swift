@@ -10,28 +10,41 @@ import UIKit
 
 class Space: UICollectionViewController {
     
+    var selectedIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Graphik-Black", size: 20)!]
     }
     
-    var products = [Product(name: "Eames Chair", description: "Black Leather", price: "$4500", images: ["eames1", "eames2", "eames3"])]
+    override func unwindToViewController(sender: UIStoryboardSegue) {
+        print("HI")
+    }
+    
+    var products = [Product(name: "Eames Chair", description: "Black Leather", price: "$4500", images: ["eames1", "eames2", "eames3"]), Product(name: "Ball Chair", description: "Designed by Eero Aarnio", price: "$10,565", images: ["ballchair1", "ballchair2", "ballchair3"])]
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return products.count
+        return 1
     }
     
     //2
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return products.count
     }
     
     //3
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Product", forIndexPath: indexPath) as! ProductCollectionCell
+        print(self.products[indexPath.row].name)
+        cell.tag = indexPath.row
         cell.product = self.products[indexPath.row]
+        
         // Configure the cell
         return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.selectedIndex = indexPath.row
     }
 
     
@@ -52,6 +65,16 @@ class Space: UICollectionViewController {
                 //4
                 assert(false, "Unexpected element kind")
             }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ProductSegue" {
+            let tvCell = sender as! UICollectionViewCell
+            
+            let vc = segue.destinationViewController as! ProductViewController
+            vc.product = self.products[tvCell.tag]
+        
+        }
     }
     
 //    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

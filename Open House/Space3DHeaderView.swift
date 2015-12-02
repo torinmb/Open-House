@@ -15,7 +15,7 @@ class Space3DHeaderView: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         print("Loading 3D Room")
-        let url = NSURL (string: "http://www.shapespark.com/formikodesign/old-brewery-apartment");
+        let url = NSURL (string: "https://www.shapespark.com/formikodesign/old-brewery-apartment");
         let requestObj = NSURLRequest(URL: url!);
         self.webView.loadRequest(requestObj);
         print("Loaded 3D Room")

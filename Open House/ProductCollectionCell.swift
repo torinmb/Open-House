@@ -21,14 +21,24 @@ class ProductCollectionCell: UICollectionViewCell {
     @IBOutlet weak var view: DesignableView!
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var price: UILabel!
+    
     var imageIndex = 0
-    lazy var product = Product(name: "", description: "", price: "", images: [])
+    var product : Product = Product(name: "", description: "", price: "", images: ["eames1"]) {
+        didSet {
+            self.image.image = UIImage(named: self.product.images[0])
+            self.name.text = self.product.name
+            self.price.text = self.product.price
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.image.clipsToBounds = true
         self.view.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: "swiped:"))
-        
+        self.image.image = UIImage(named: self.product.images[0])
+        self.name.text = self.product.name
+        self.price.text = self.product.price
     }
     
     func swiped(gesture: UISwipeGestureRecognizer) {
