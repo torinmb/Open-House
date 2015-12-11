@@ -15,4 +15,5 @@ struct Post {
     var description: String
     var timeStamp : String
     var image : UIImage
+    var products : [Product]
 }

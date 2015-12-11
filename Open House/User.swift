@@ -13,4 +13,8 @@ import UIKit
 struct User {
     var userName: String
     var profileImage : UIImage
+    var posts : String
+    var followers : String
+    var following : String
 }
+
